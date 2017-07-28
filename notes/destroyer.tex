@@ -1,12 +1,38 @@
 \documentclass[12pt]{article}
 
+\newcommand{\project}[1]{\textsl{#1}}
+\newcommand{\acronym}[1]{{\small{#1}}}
+\newcommand{\LAMOST}{\project{\acronym{LAMOST}}}
+\newcommand{\TheCannon}{\project{The~Cannon}}
+\newcommand{\Gaia}{\project{Gaia}}
+
 \begin{document}\raggedbottom\sloppy\sloppypar\frenchspacing
 
+\paragraph{Abstract:}
+Using Ting-built spectral derivatives,
+we can assemble a derivative of stellar spectral expectation with respect
+to a Earth-like composition anomaly.
+We can then---by various data-driven means---locate stars in the
+\LAMOST\ data that show evidence of having (recently?) consumed
+large quantities of rock.
+
+\biskip
+
 For context for what follows, recall that Andy Casey (Monash) and Anna
-Y. Q. Ho (Caltech) performed \textsl{The-Cannon}-like fits to
-\textsl{LAMOST} spectra and searched the residuals for evidence of
-Li-rich stars. They could have performed this fit by projecting the
+Y. Q. Ho (Caltech) performed fits (with \TheCannon) to
+\LAMOST\ spectra and searched the residuals for evidence of
+Li-rich stars.
+They could have performed this fit by projecting the
 residals against a derivative of spectral expectation with respect
 to Li abundance.
+That is, you can find abundance anomalies by projecting residuals away
+from a data-driven fit onto spectral derivatives.
+
+For further context, Semyeong Oh (Princeton) has found a pair of similar
+(and co-moving) G-type dwarf stars in \Gaia\ data, where one of the pair
+shows an enormous abundance anomaly that is chemically similar to the
+bulk composition of the Earth.
+This anomaly is not subtle; it would have been easy to find with a matched
+filter.
 
 \end{document}
