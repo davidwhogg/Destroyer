@@ -6,7 +6,19 @@
 \newcommand{\TheCannon}{\project{The~Cannon}}
 \newcommand{\Gaia}{\project{Gaia}}
 
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\teff}{T_{\mathrm{eff}}}
+\newcommand{\logg}{\log g}
+\newcommand{\feh}{[\mathrm{Fe}/\mathrm{H}]}
+\newcommand{\rock}{\mathrm{rock}}
+
 \begin{document}\raggedbottom\sloppy\sloppypar\frenchspacing
+
+\paragraph{A data-driven approach to finding stars that eat rocks}
+~
+
+\noindent
+by \textbf{Hogg} and others
 
 \paragraph{Abstract:}
 Using Ting-built spectral derivatives,
@@ -16,8 +28,7 @@ We can then---by various data-driven means---locate stars in the
 \LAMOST\ data that show evidence of having (recently?) consumed
 large quantities of rock.
 
-\bigskip
-
+\paragraph{Introduction:}
 For context for what follows, recall that Andy Casey (Monash) and Anna
 Y. Q. Ho (Caltech) performed fits (with \TheCannon) to
 \LAMOST\ spectra and searched the residuals for evidence of
@@ -34,5 +45,69 @@ shows an enormous abundance anomaly that is chemically similar to the
 bulk composition of the Earth.
 This anomaly is not subtle; it would have been easy to find with a matched
 filter.
+
+For yet further context, Yuan-Sen Ting (Harvard) has computed derivatives
+of the spectral expectation (the spectrum, really) for a star with parameters
+$(\teff, \logg, \feh)$ with respect to element $k$ abundance $\ln X_k$.
+He might have these derivatives in different units, but he can convert them
+into the units ``per nat'' or ``per unit natural log'' at will.
+
+\paragraph{Method:}
+Choose a small bin in spectral parameters $(\teff, \logg, \feh)$.
+Compute or obtain (from Ting) spectral derivatives $\dd f_\lambda/\dd\ln X_k$ for
+all elements $k$ for the normalized spectra $f_\lambda$, relevant
+to the stars in this small spectral-parameter bin.
+That is, evaluate these derivatives at the parameters that are
+appropriate for the stars in the bin.
+(We always work in normalized-spectrum space in what follows; normalization
+is presumed to be done, done correctly, and out of scope here.)
+
+Obtain (from Oh) the derivatives $\dd\ln X_k/\dd M_\rock$ which tell
+you the logarithmic increase in the abundance of element $k$ per unit
+mass of rock dumped into a star with parameters $(\teff, \logg, \feh)$
+appropriate to this spectral-parameter bin.
+These derivatives are just the rock abundances divided by the stellar
+abundances, and maybe some factor that accounts for the photospheric
+mass of the star with parameters $(\teff, \logg, \feh)$.
+Take the dot product
+\begin{eqnarray}
+  \frac{\dd f_\lambda}{\dd M_\rock} &=&
+  \sum_{k=1}^K \frac{\dd f_\lambda}{\dd\ln X_k}\,\frac{\dd\ln X_k}{\dd M_\rock}
+  \quad .
+\end{eqnarray}
+This is the derivative of the spectral expectation with respect to
+the amount of swallowed rock, relevant to stars in this bin.
+
+Now make a \emph{test set} of
+stars that have spectra consistent with being in or near
+the bin centered on $(\teff, \logg, \feh)$.
+This test-set membership ought to be made loose, especially in the $\feh$
+direction, because we are looking for anomalies!
+
+For each star $n$ in this test set, do the following:
+$\bullet$~Obtain a spectral expectation for star $n$ (more below).
+$\bullet$~Subtract the spectral expectation to create a residual spectrum
+          $\Delta f_\lambda$ for star $n$.
+$\bullet$~Project the residual spectrum onto the rock derivative
+          $\frac{\dd f_\lambda}{\dd M_\rock}$.
+$\bullet$~Threshold the projection and append to the list of stars with
+          high values of the projection (or not).
+(And then publish, get famous, win prizes, retire early.)
+
+As for the spectral expectation mentioned above, there are a few ideas.
+One bad idea is to use physical stellar models. These are bad, and they
+are particularly bad where we care about our residuals. One good idea
+is to use \TheCannon, trained on a good training set that overlaps the
+spectral bin.
+Another good idea is to just make an empirical difference between star
+$n$ and stars that are (empirically, in the data) spectrally similar to
+star $n$, but \emph{in the tangent space} of the derivative 
+$\frac{\dd f_\lambda}{\dd M_\rock}$.
+That is, similar in spectral direction orthogonal to the derivative we
+care about.
+
+The key thing is that we want this spectral expectation to be data-driven,
+or empirical.
+Physical models just aren't good enough yet.
 
 \end{document}
